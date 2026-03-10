@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test de Niveau Anglais — Acdéspace</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1a4d2e;
+  --navy2: #14391f;
+  --gold: #d4a843;
+  --gold2: #f0c96a;
+  --sky: #edf7f0;
+  --white: #ffffff;
+  --text: #152b1e;
+  --muted: #5a7d66;
+  --green: #1a9c5b;
+  --red: #c0392b;
+  --card-bg: #ffffff;
+  --border: #c8e6d0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--sky);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(26,77,46,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(212,168,67,0.09) 0%, transparent 50%);
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--navy);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1a4d2e 0%, #2d7a4a 100%);
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--gold2), var(--gold), transparent);
+}
+.header-inner {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2.2rem 2rem 2.5rem;
+  text-align: center;
+}
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.brand-name span {
+  color: var(--gold);
+}
+.brand-tagline {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.2rem;
+  font-weight: 300;
+}
+.test-title {
+  margin-top: 1.6rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 600;
+  color: var(--white);
+}
+.test-title em { font-style: normal; color: var(--gold2); }
+.flag-row { margin-top: 0.6rem; font-size: 1.4rem; letter-spacing: 0.5rem; opacity: 0.8; }
+
+/* ── PROGRESS ── */
+#prog-bar-zone {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.2rem 2rem 0;
+  display: none;
+}
+.prog-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+.prog-track {
+  height: 5px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--navy), var(--gold));
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── MAIN ── */
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 5rem;
+}
+
+.screen { display: none; animation: fadeUp 0.4s ease; }
+.screen.active { display: block; }
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(18px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ── WELCOME ── */
+#screen-welcome { text-align: center; padding-top: 0.5rem; }
+.levels-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+.lv {
+  padding: 0.3rem 0.85rem;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  background: white;
+}
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.stat-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.2rem 0.8rem;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(11,31,58,0.06);
+}
+.stat-box .sb-icon { font-size: 1.5rem; }
+.stat-box .sb-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+}
+.stat-box .sb-lbl { font-size: 0.7rem; color: var(--muted); margin-top: 0.1rem; }
+
+.welcome-note {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* ── QUESTION CARD ── */
+.q-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 4px 28px rgba(11,31,58,0.08);
+  margin-bottom: 1rem;
+}
+.q-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.3rem;
+}
+.q-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  background: var(--navy);
+  color: var(--gold2);
+}
+.q-counter { font-size: 0.78rem; color: var(--muted); }
+.q-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+.q-text em {
+  font-style: normal;
+  color: var(--gold);
+  border-bottom: 2px dashed var(--gold2);
+  padding-bottom: 1px;
+}
+.options { display: flex; flex-direction: column; gap: 0.65rem; }
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  background: white;
+  transition: all 0.17s ease;
+  font-size: 0.92rem;
+  text-align: left;
+  width: 100%;
+  color: var(--text);
+}
+.option:hover:not(:disabled) {
+  border-color: var(--navy);
+  background: var(--sky);
+  transform: translateX(4px);
+}
+.opt-ltr {
+  min-width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--sky);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: var(--navy);
+  flex-shrink: 0;
+  transition: all 0.17s;
+}
+.option.correct { border-color: var(--green); background: rgba(26,156,91,0.06); }
+.option.correct .opt-ltr { background: var(--green); color: white; }
+.option.wrong   { border-color: var(--red);   background: rgba(192,57,43,0.05); }
+.option.wrong   .opt-ltr { background: var(--red);   color: white; }
+.option:disabled { cursor: default; }
+
+.feedback {
+  margin-top: 1rem; padding: 0.85rem 1rem;
+  border-radius: 9px; font-size: 0.86rem;
+  line-height: 1.55; display: none;
+}
+.feedback.show { display: block; animation: fadeUp 0.2s ease; }
+.feedback.ok  { background: rgba(26,156,91,0.08); border-left: 3px solid var(--green); color: #135c38; }
+.feedback.ko  { background: rgba(192,57,43,0.07); border-left: 3px solid var(--red);   color: #7e2018; }
+
+/* ── NAV ROW ── */
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+.live-score { font-size: 0.82rem; color: var(--muted); }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.8rem 1.8rem; border-radius: 10px;
+  font-family: 'Outfit', sans-serif; font-size: 0.92rem; font-weight: 500;
+  cursor: pointer; border: none; transition: all 0.18s ease;
+}
+.btn-navy {
+  background: var(--navy); color: white;
+}
+.btn-navy:hover { background: var(--navy2); transform: translateY(-1px); box-shadow: 0 5px 16px rgba(26,77,46,0.25); }
+.btn-gold {
+  background: var(--gold); color: white;
+}
+.btn-gold:hover { background: #be932d; transform: translateY(-1px); }
+.btn-outline {
+  background: transparent; border: 1.5px solid var(--border); color: var(--text);
+}
+.btn-outline:hover { border-color: var(--navy); }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; }
+
+/* ── RESULTS ── */
+#screen-results { padding-top: 0.5rem; }
+
+.result-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 0 2rem 2.5rem;
+  box-shadow: 0 6px 32px rgba(26,77,46,0.12);
+  text-align: center;
+  margin-bottom: 1.2rem;
+  overflow: hidden;
+}
+.result-banner {
+  background: linear-gradient(135deg, var(--navy), #2d7a4a);
+  margin: 0 -2rem;
+  padding: 2rem 2rem 1.5rem;
+  position: relative;
+}
+.result-banner::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.score-ring {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  border: 4px solid var(--gold);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  background: rgba(212,168,67,0.08);
+}
+.score-big {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem; font-weight: 900;
+  color: var(--gold2); line-height: 1;
+}
+.score-denom { font-size: 0.72rem; color: rgba(255,255,255,0.5); }
+.res-level-code {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight: 900; color: white;
+  margin-bottom: 0.2rem;
+}
+.res-level-name { font-size: 0.85rem; color: var(--gold2); font-weight: 300; letter-spacing: 0.06em; }
+
+/* ── INSPIRING CTA ── */
+.inspire-block {
+  margin: 2rem 0 0.5rem;
+  padding: 1.8rem 1.5rem;
+  background: linear-gradient(135deg, #f8f5ee, #fff9ec);
+  border: 1.5px solid rgba(212,168,67,0.25);
+  border-radius: 14px;
+  position: relative;
+}
+.inspire-block::before {
+  content: '\201C';
+  position: absolute; top: 0.5rem; left: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem; color: var(--gold); opacity: 0.3; line-height: 1;
+}
+.inspire-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem; font-weight: 600;
+  color: var(--navy); line-height: 1.6;
+  font-style: italic; margin-bottom: 1rem;
+}
+.inspire-sub {
+  font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.4rem;
+}
+.cta-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--navy), #2d7a4a);
+  color: white;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,77,46,0.3); }
+.cta-brand {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── SKILL BREAKDOWN ── */
+.breakdown-title {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); margin: 1.5rem 0 0.8rem; font-weight: 600;
+}
+.skills-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.8rem; margin-bottom: 1.5rem;
+}
+.sk-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 12px; padding: 1rem;
+}
+.sk-card h4 {
+  font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.sk-track { height: 5px; background: var(--sky); border-radius: 99px; overflow: hidden; margin-bottom: 0.35rem; }
+.sk-fill  { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--navy), var(--gold)); transition: width 1s cubic-bezier(.4,0,.2,1) 0.4s; }
+.sk-pct   { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+
+.actions-row { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+.site-footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+@media(max-width:500px){
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .q-card { padding: 1.4rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-name">Acd<span>é</span>space</div>
+    <div class="brand-tagline">Centre de Formation Professionnelle</div>
+    <div class="test-title">Test de Niveau <em>Anglais</em></div>
+    <div class="flag-row">🇬🇧 🇺🇸</div>
+  </div>
+</header>
+
+<!-- PROGRESS -->
+<div id="prog-bar-zone">
+  <div class="prog-info">
+    <span id="prog-label">Question 1 / 20</span>
+    <span id="prog-pct">0%</span>
+  </div>
+  <div class="prog-track">
+    <div class="prog-fill" id="prog-fill" style="width:0%"></div>
+  </div>
+</div>
+
+<main>
+
+  <!-- WELCOME -->
+  <div class="screen active" id="screen-welcome">
+    <div class="levels-row">
+      <span class="lv">A1 · Débutant</span>
+      <span class="lv">A2 · Élémentaire</span>
+      <span class="lv">B1 · Intermédiaire</span>
+      <span class="lv">B2 · Avancé</span>
+      <span class="lv">C1 · Courant</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="sb-icon">📝</div><div class="sb-val">20</div><div class="sb-lbl">Questions</div></div>
+      <div class="stat-box"><div class="sb-icon">⏱️</div><div class="sb-val">~10</div><div class="sb-lbl">Minutes</div></div>
+      <div class="stat-box"><div class="sb-icon">🎯</div><div class="sb-val">5</div><div class="sb-lbl">Niveaux</div></div>
+    </div>
+    <p class="welcome-note">
+      Ce test évalue votre grammaire, votre vocabulaire et votre compréhension.<br>
+      Répondez instinctivement — sans aide extérieure !<br>
+      À la fin, découvrez votre niveau officiel et comment progresser avec <strong>Acdéspace</strong>.
+    </p>
+    <button class="btn btn-navy" onclick="startTest()">Commencer le test →</button>
+  </div>
+
+  <!-- QUESTION -->
+  <div class="screen" id="screen-question">
+    <div class="q-card">
+      <div class="q-top">
+        <span class="q-badge" id="q-badge">A1</span>
+        <span class="q-counter" id="q-counter">1 / 20</span>
+      </div>
+      <p class="q-text" id="q-text">…</p>
+      <div class="options" id="options-wrap"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+    <div class="nav-row">
+      <span class="live-score" id="live-score"></span>
+      <button class="btn btn-gold" id="btn-next" onclick="nextQ()" disabled>Suivant →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen" id="screen-results">
+
+    <div class="result-card">
+      <div class="result-banner">
+        <div class="score-ring">
+          <div class="score-big" id="r-score">0</div>
+          <div class="score-denom">/ 20</div>
+        </div>
+        <div class="res-level-code" id="r-code">B1</div>
+        <div class="res-level-name" id="r-name">Intermediate</div>
+      </div>
+
+      <!-- INSPIRING CTA -->
+      <div class="inspire-block">
+        <p class="inspire-quote" id="inspire-quote">"Chaque mot appris est une porte ouverte sur le monde."</p>
+        <p class="inspire-sub" id="inspire-sub">Votre niveau est un point de départ, pas une limite. Chez Acdéspace, nos formateurs certifiés vous accompagnent à chaque étape pour atteindre vos objectifs.</p>
+        <button class="cta-btn" onclick="showContact()">🚀 Rejoindre Acdéspace</button>
+        <span class="cta-brand">Acdéspace · Centre de Formation</span>
+      </div>
+    </div>
+
+    <p class="breakdown-title">Détail par niveau</p>
+    <div class="skills-grid" id="skills-grid"></div>
+
+    <div class="actions-row">
+      <button class="btn btn-outline" onclick="restartTest()">🔄 Recommencer</button>
+      <button class="btn btn-navy" onclick="copyResult()">📋 Partager mon résultat</button>
+    </div>
+
+  </div>
+
+  <!-- CONTACT -->
+  <div class="screen" id="screen-contact">
+    <div class="q-card" style="text-align:center;padding:2.5rem 2rem;">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">🎓</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:900;color:var(--navy);margin-bottom:0.3rem;">Acdéspace</div>
+      <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1.8rem;">Centre de Formation Professionnelle</div>
+      <p style="font-size:0.95rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;">
+        Rejoignez-nous et transformez votre niveau d'anglais en atout professionnel.<br>
+        Nos formations sont adaptées à <strong>tous les niveaux</strong>, du débutant au bilingue.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:0.7rem;align-items:center;margin-bottom:2rem;">
+        <div style="background:var(--sky);border-radius:10px;padding:0.9rem 1.5rem;font-size:0.9rem;width:100%;max-width:300px;">
+          📍 <strong>Venez nous rendre visite</strong><br>
+          <span style="color:var(--muted);font-size:0.82rem;">Demandez notre adresse à la réception</span>
+        </div>
+        <div style="background:var(--sky);border-radius:10px;padding:0.9rem 1.5rem;font-size:0.9rem;width:100%;max-width:300px;">
+          📞 <strong>Appelez-nous</strong><br>
+          <span style="color:var(--muted);font-size:0.82rem;">Nous sommes disponibles du Lundi au Samedi</span>
+        </div>
+      </div>
+      <button class="btn btn-outline" onclick="show('results')">← Retour aux résultats</button>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  © Acdéspace · Centre de Formation Professionnelle
+</footer>
+
+<script>
+const QUESTIONS = [
+  {lv:"A1", t:'What ___ your name?',          ops:['is','are','am','be'],           ans:0, ex:'Avec "your name" (singulier), on utilise "is".'},
+  {lv:"A1", t:'She ___ a teacher.',            ops:['am','are','is','be'],           ans:2, ex:'"She" → 3e personne singulier → "is".'},
+  {lv:"A1", t:'I have ___ apple.',             ops:['a','an','the','—'],             ans:1, ex:'"Apple" commence par une voyelle → "an".'},
+  {lv:"A1", t:'They ___ from Spain.',          ops:['is','am','be','are'],           ans:3, ex:'"They" → pluriel → "are".'},
+  {lv:"A2", t:'She ___ to school every day.',  ops:['go','goes','going','gone'],     ans:1, ex:'Présent simple, 3e personne → "goes".'},
+  {lv:"A2", t:'I ___ a film last night.',      ops:['watch','watched','am watching','watches'], ans:1, ex:'"Last night" → passé → "watched".'},
+  {lv:"A2", t:'There ___ some milk in the fridge.', ops:['are','were','is','be'],   ans:2, ex:'"Milk" est indénombrable → "is".'},
+  {lv:"A2", t:'He can ___ very fast.',         ops:['runs','running','run','ran'],   ans:2, ex:'Après "can" → base verbale.'},
+  {lv:"B1", t:'If I ___ rich, I would travel the world.', ops:['am','were','will be','had been'], ans:1, ex:'Conditionnel 2 → "If I were".'},
+  {lv:"B1", t:'She has been working here ___ 2019.', ops:['for','since','during','ago'], ans:1, ex:'"Since" → point de départ.'},
+  {lv:"B1", t:'The report ___ by Friday.',     ops:['will finish','will be finished','is finishing','finishes'], ans:1, ex:'Passif futur → "will be finished".'},
+  {lv:"B1", t:'He was very ___ to help us.',   ops:['gladly','glad','gladness','gladden'], ans:1, ex:'Adjectif après "was" → "glad".'},
+  {lv:"B2", t:'___ had she arrived when the meeting started.', ops:['Hardly','Scarcely','No sooner','Barely'], ans:2, ex:'"No sooner… than" → inversion.'},
+  {lv:"B2", t:'"Serendipity" means:',          ops:['planned success','a happy coincidence','deep sadness','formal agreement'], ans:1, ex:'"Serendipity" = découverte heureuse et inattendue.'},
+  {lv:"B2", t:'She insisted that he ___ the task immediately.', ops:['completes','completed','complete','completing'], ans:2, ex:'Subjonctif après "insisted that" → base verbale.'},
+  {lv:"B2", t:'The proposal was met with ___ from the committee.', ops:['sceptical','sceptically','scepticism','sceptic'], ans:2, ex:'Nom après "with" → "scepticism".'},
+  {lv:"C1", t:'"The project was ___ by unforeseen circumstances."', ops:['hampered','prohibited','restricted','challenged'], ans:0, ex:'"Hampered" = entravé par des obstacles.'},
+  {lv:"C1", t:'Identify the correct sentence:', ops:['Despite of the rain, we went out.','Despite the rain, we went out.','Although the rain, we went out.','In spite to the rain, we went out.'], ans:1, ex:'"Despite" → sans "of".'},
+  {lv:"C1", t:'"Ephemeral" most closely means:', ops:['permanent','transient','vigorous','obscure'], ans:1, ex:'"Ephemeral" = éphémère, de courte durée.'},
+  {lv:"C1", t:'"Had I known about the delay, I ___ earlier."', ops:['would leave','will have left','would have left','had left'], ans:2, ex:'Conditionnel 3 → "would have left".'},
+];
+
+const LEVELS = [
+  {max:4,  code:'A1', en:'Beginner',           fr:'Débutant',
+   quote:'"Chaque grand voyage commence par un premier pas. Le vôtre commence aujourd\'hui."',
+   sub:'Votre potentiel est immense ! Chez Acdéspace, nos formateurs vous accompagnent dès les bases pour vous donner confiance et vous faire progresser rapidement.'},
+  {max:8,  code:'A2', en:'Elementary',         fr:'Élémentaire',
+   quote:'"La maîtrise naît de la persévérance. Vous avez déjà franchi les premières barrières !"',
+   sub:'Vous avez de solides fondations. Avec les formations Acdéspace, transformez cet élan en véritable fluidité à l\'oral comme à l\'écrit.'},
+  {max:12, code:'B1', en:'Intermediate',       fr:'Intermédiaire',
+   quote:'"Vous êtes à mi-chemin du sommet — et la vue depuis le haut est extraordinaire."',
+   sub:'Vous communiquez déjà avec aisance. Rejoignez Acdéspace pour atteindre le niveau qui ouvre les portes des carrières internationales.'},
+  {max:16, code:'B2', en:'Upper-Intermediate', fr:'Avancé',
+   quote:'"L\'excellence n\'est pas un accident. C\'est le résultat d\'une ambition et d\'un accompagnement de qualité."',
+   sub:'Votre niveau est remarquable ! Chez Acdéspace, nous vous aidons à atteindre la fluidité naturelle du locuteur natif.'},
+  {max:20, code:'C1', en:'Advanced',           fr:'Courant / Bilingue',
+   quote:'"Parler anglais couramment, c\'est s\'ouvrir à un monde sans frontières. Vous y êtes presque !"',
+   sub:'Félicitations pour ce score exceptionnel ! Acdéspace propose des formations avancées pour parfaire votre maîtrise et valoriser votre profil professionnel.'},
+];
+
+let cur=0, score=0, answered=false;
+let catScores={A1:0,A2:0,B1:0,B2:0,C1:0};
+let catCounts={A1:0,A2:0,B1:0,B2:0,C1:0};
+QUESTIONS.forEach(q=>catCounts[q.lv]++);
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+}
+
+function startTest(){
+  cur=0;score=0;answered=false;
+  catScores={A1:0,A2:0,B1:0,B2:0,C1:0};
+  document.getElementById('prog-bar-zone').style.display='block';
+  show('question');renderQ();
+}
+
+function renderQ(){
+  answered=false;
+  const q=QUESTIONS[cur];
+  document.getElementById('q-badge').textContent=q.lv;
+  document.getElementById('q-counter').textContent=(cur+1)+' / '+QUESTIONS.length;
+  document.getElementById('q-text').innerHTML=q.t.replace(/_+/,'<em>___</em>');
+  document.getElementById('feedback').className='feedback';
+  document.getElementById('btn-next').disabled=true;
+  document.getElementById('live-score').textContent='Score : '+score+' / '+cur;
+  const LTRS=['A','B','C','D'];
+  const wrap=document.getElementById('options-wrap');
+  wrap.innerHTML='';
+  q.ops.forEach((op,i)=>{
+    const b=document.createElement('button');
+    b.className='option';
+    b.innerHTML=`<span class="opt-ltr">${LTRS[i]}</span><span>${op}</span>`;
+    b.onclick=()=>pick(i);
+    wrap.appendChild(b);
+  });
+  updateProg();
+}
+
+function pick(idx){
+  if(answered)return;
+  answered=true;
+  const q=QUESTIONS[cur];
+  document.querySelectorAll('.option').forEach(o=>o.disabled=true);
+  const fb=document.getElementById('feedback');
+  if(idx===q.ans){
+    score++;catScores[q.lv]++;
+    document.querySelectorAll('.option')[idx].classList.add('correct');
+    fb.className='feedback ok show';
+    fb.innerHTML='✅ <strong>Correct !</strong> '+q.ex;
+  } else {
+    document.querySelectorAll('.option')[idx].classList.add('wrong');
+    document.querySelectorAll('.option')[q.ans].classList.add('correct');
+    fb.className='feedback ko show';
+    fb.innerHTML='❌ <strong>Incorrect.</strong> '+q.ex;
+  }
+  document.getElementById('live-score').textContent='Score : '+score+' / '+(cur+1);
+  document.getElementById('btn-next').disabled=false;
+  document.getElementById('btn-next').textContent=cur<QUESTIONS.length-1?'Suivant →':'Voir mes résultats →';
+}
+
+function nextQ(){
+  cur++;
+  if(cur>=QUESTIONS.length) showResults();
+  else renderQ();
+}
+
+function updateProg(){
+  const p=Math.round(cur/QUESTIONS.length*100);
+  document.getElementById('prog-fill').style.width=p+'%';
+  document.getElementById('prog-label').textContent='Question '+(cur+1)+' / '+QUESTIONS.length;
+  document.getElementById('prog-pct').textContent=p+'%';
+}
+
+function getLvl(s){
+  return LEVELS.find(l=>s<=l.max)||LEVELS[LEVELS.length-1];
+}
+
+function showResults(){
+  document.getElementById('prog-bar-zone').style.display='none';
+  show('results');
+  const lvl=getLvl(score);
+  document.getElementById('r-score').textContent=score;
+  document.getElementById('r-code').textContent=lvl.code+' – '+lvl.en;
+  document.getElementById('r-name').textContent=lvl.fr;
+  document.getElementById('inspire-quote').textContent=lvl.quote;
+  document.getElementById('inspire-sub').textContent=lvl.sub;
+
+  const grid=document.getElementById('skills-grid');
+  grid.innerHTML='';
+  const cats=['A1','A2','B1','B2','C1'];
+  const labels={A1:'Débutant',A2:'Élémentaire',B1:'Intermédiaire',B2:'Avancé',C1:'Courant'};
+  cats.forEach(cat=>{
+    const pct=catCounts[cat]>0?Math.round(catScores[cat]/catCounts[cat]*100):0;
+    const c=document.createElement('div');
+    c.className='sk-card';
+    c.innerHTML=`<h4>${cat} · ${labels[cat]}</h4>
+      <div class="sk-track"><div class="sk-fill" style="width:0%" data-t="${pct}%"></div></div>
+      <div class="sk-pct">${catScores[cat]} / ${catCounts[cat]}</div>`;
+    grid.appendChild(c);
+  });
+  setTimeout(()=>{
+    document.querySelectorAll('.sk-fill').forEach(el=>el.style.width=el.dataset.t);
+  },120);
+}
+
+function showContact(){ show('contact'); }
+function restartTest(){
+  document.getElementById('prog-bar-zone').style.display='none';
+  show('welcome');
+}
+function copyResult(){
+  const lvl=getLvl(score);
+  const txt=`🇬🇧 Test de niveau anglais — Acdéspace\n📊 Score : ${score} / 20\n🎯 Niveau : ${lvl.code} – ${lvl.en} (${lvl.fr})\n\n🎓 Rejoignez Acdéspace · Centre de Formation !`;
+  navigator.clipboard.writeText(txt).then(()=>alert('Résultat copié !'));
+}
+</script>
+</body>
+</html>
